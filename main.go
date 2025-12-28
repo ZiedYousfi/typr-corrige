@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/driver/desktop"
-	
+
 	typrio "github.com/ziedyousfi/typr-io-go"
 )
 
@@ -24,7 +24,6 @@ func main() {
 
 	myApp := app.New()
 
-	// Utilisation du driver desktop pour créer une fenêtre sans bordures
 	var window fyne.Window
 	if drv, ok := myApp.Driver().(desktop.Driver); ok {
 		window = drv.CreateSplashWindow()
@@ -36,14 +35,11 @@ func main() {
 	window.SetPadded(false)
 
 	text := canvas.NewText("Waiting...", color.White)
-	text.TextSize = 24 // Un peu plus grand pour la lisibilité
+	text.TextSize = 14
 	content := container.NewCenter(text)
 
 	window.SetContent(content)
 	window.Resize(fyne.NewSize(400, 100))
-
-	// Comme Move() n'est pas dispo, CenterOnScreen est la seule
-	// commande de positionnement garantie par Fyne.
 	window.CenterOnScreen()
 
 	cw := &CurrentWord{
@@ -56,7 +52,6 @@ func main() {
 	}
 	defer listener.Close()
 
-	// On lance le listener dans une goroutine pour ne pas bloquer l'UI
 	go func() {
 		err = listener.Start(cw.cb)
 		if err != nil {
