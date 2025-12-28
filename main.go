@@ -7,17 +7,41 @@ import (
 	typrio "github.com/ziedyousfi/typr-io-go"
 )
 
-func main() {
-	fmt.Println("Hello, World!")
+type CurrentWord struct {
+	Word  string
+}
 
-	sender, err := typrio.NewSender()
+func main() {
+	fmt.Println("Listening for keyboard events... (Press Space to clear word)")
+
+	cw := &CurrentWord{}
+
+	listener, err := typrio.NewListener()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer sender.Close()
+	defer listener.Close()
 
-	// Type some text
-	sender.TypeText("Hello, World!")
-	// Press a key combination
-	sender.Combo(typrio.ModCtrl, typrio.StringToKey("S"))
+	err = listener.Start(cw.cb)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Keep the program running
+	select {}
+}
+
+func (w *CurrentWord) cb(event typrio.KeyEvent) {
+	if !event.IsPress() {
+		return
+	}
+
+	r := event.Rune()
+	if r == ' ' {
+		fmt.Printf("\nSpace detected. Clearing word: %s\n", w.Word)
+		w.Word = ""
+	} else if r != 0 {
+		w.Word += string(r)
+		fmt.Printf("\rCurrent word: %-50s\n", w.Word)
+	}
 }
