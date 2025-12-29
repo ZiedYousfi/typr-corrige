@@ -197,31 +197,31 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: typr-corrige-darwin-amd64
-          path: ./typr-corrige-darwin-amd64
+          path: ./artifacts
 
       - name: Download darwin-arm64 artifact
         uses: actions/download-artifact@v4
         with:
           name: typr-corrige-darwin-arm64
-          path: ./typr-corrige-darwin-arm64
+          path: ./artifacts
 
       - name: Download linux-amd64 artifact
         uses: actions/download-artifact@v4
         with:
           name: typr-corrige-linux-amd64
-          path: ./typr-corrige-linux-amd64
+          path: ./artifacts
 
       - name: Download linux-arm64 artifact
         uses: actions/download-artifact@v4
         with:
           name: typr-corrige-linux-arm64
-          path: ./typr-corrige-linux-arm64
+          path: ./artifacts
 
       - name: Download windows-amd64 artifact
         uses: actions/download-artifact@v4
         with:
           name: typr-corrige-windows-amd64
-          path: ./typr-corrige-windows-amd64.exe
+          path: ./artifacts
 
       - name: Upload darwin-amd64 to release
         uses: actions/upload-release-asset@v1
@@ -229,7 +229,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./typr-corrige-darwin-amd64
+          asset_path: ./artifacts/typr-corrige-darwin-amd64
           asset_name: typr-corrige-darwin-amd64
           asset_content_type: application/octet-stream
 
@@ -239,7 +239,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./typr-corrige-darwin-arm64
+          asset_path: ./artifacts/typr-corrige-darwin-arm64
           asset_name: typr-corrige-darwin-arm64
           asset_content_type: application/octet-stream
 
@@ -249,7 +249,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./typr-corrige-linux-amd64
+          asset_path: ./artifacts/typr-corrige-linux-amd64
           asset_name: typr-corrige-linux-amd64
           asset_content_type: application/octet-stream
 
@@ -259,7 +259,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./typr-corrige-linux-arm64
+          asset_path: ./artifacts/typr-corrige-linux-arm64
           asset_name: typr-corrige-linux-arm64
           asset_content_type: application/octet-stream
 
@@ -269,6 +269,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./typr-corrige-windows-amd64.exe
+          asset_path: ./artifacts/typr-corrige-windows-amd64.exe
           asset_name: typr-corrige-windows-amd64.exe
           asset_content_type: application/octet-stream
