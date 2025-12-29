@@ -1,4 +1,4 @@
-module github.com/ziedyousfi/typr-correct
+module github.com/ziedyousfi/typr-corrige
 
 go 1.25.5
 
