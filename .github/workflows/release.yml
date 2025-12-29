@@ -122,7 +122,7 @@ jobs:
               libxkbcommon-dev:arm64 \
               libudev-dev:arm64 \
               libinput-dev:arm64 \
-              libstdc++-20-dev:arm64
+              libstdc++-13-dev:arm64
           fi
 
       - name: Get version
