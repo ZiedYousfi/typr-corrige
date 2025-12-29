@@ -80,16 +80,35 @@ func (w *CurrentWord) Callback(event typrio.KeyEvent) {
 		w.Word += string(r)
 	}
 
-	if w.Text != nil {
-		fyne.Do(func() {
-			if w.Word == "" {
-				w.Text.Text = "Waiting..."
-			} else {
-				w.Text.Text = w.Word
-			}
-			w.Text.Refresh()
-		})
+	w.updateDisplay()
+}
+
+// updateDisplay updates the window text with current word and potential correction
+func (w *CurrentWord) updateDisplay() {
+	if w.Text == nil {
+		return
 	}
+
+	fyne.Do(func() {
+		if w.Word == "" {
+			w.Text.Text = "Waiting..."
+		} else {
+			// Check if word is correct and get suggestion if not
+			wordLower := strings.ToLower(w.Word)
+			if w.Checker.IsCorrect(wordLower) {
+				w.Text.Text = w.Word + " ✓"
+			} else {
+				// Get best suggestion
+				result := w.Checker.Suggest(wordLower, 1)
+				if len(result.Suggestions) > 0 {
+					w.Text.Text = fmt.Sprintf("%s → %s", w.Word, result.Suggestions[0].Value)
+				} else {
+					w.Text.Text = w.Word + " ?"
+				}
+			}
+		}
+		w.Text.Refresh()
+	})
 }
 
 // correctWord selects the previous word, deletes it, and types the correction
