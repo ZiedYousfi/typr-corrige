@@ -178,7 +178,8 @@ jobs:
           CGO_ENABLED: 1
           GOOS: windows
           GOARCH: ${{ matrix.goarch }}
-          CC: cl.exe
+          CC: clang-cl.exe
+          CXX: clang-cl.exe
         run: |
           $vsPath = (vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath).Trim()
           if (-not $vsPath) {
