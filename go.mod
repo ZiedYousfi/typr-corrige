@@ -2,7 +2,7 @@ module github.com/ziedyousfi/typr-corrige
 
 go 1.25.5
 
-require github.com/ziedyousfi/typr-io-go v0.2.2
+require github.com/ziedyousfi/typr-io-go v0.2.3
 
 require (
 	gioui.org/shader v1.0.8 // indirect
