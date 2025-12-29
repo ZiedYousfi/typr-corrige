@@ -96,7 +96,7 @@ jobs:
             libxxf86vm-dev \
             libxkbcommon-dev \
             libwayland-dev \
-            libwayland-egl-dev
+            libwayland-egl1-mesa-dev
 
           # Install cross-compilation toolchain for ARM64
           if [ "${{ matrix.arch }}" == "arm64" ]; then
@@ -114,7 +114,7 @@ jobs:
                 libxxf86vm-dev:arm64 \
                 libxkbcommon-dev:arm64 \
                 libwayland-dev:arm64 \
-                libwayland-egl-dev:arm64 \
+                libwayland-egl1-mesa-dev:arm64 \
                 libudev-dev:arm64 \
                 libinput-dev:arm64 \
                 libstdc++-13-dev:arm64
