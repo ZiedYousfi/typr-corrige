@@ -11,7 +11,7 @@ on:
         default: "dev"
 
 permissions:
-  contents: read
+  contents: write
   packages: write
   actions: write
 
