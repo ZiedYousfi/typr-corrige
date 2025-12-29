@@ -38,22 +38,11 @@ func (w *CurrentWord) Callback(event typrio.KeyEvent) {
 	if r == ' ' {
 		// Word completed - calculate speed and check spelling
 		if w.Word != "" {
-			duration := time.Since(w.StartTime)
-			chars := len(w.Word)
-
-			// Calculate metrics
-			seconds := duration.Seconds()
-			charsPerSecond := float64(chars) / seconds
-			// WPM calculation: assuming average word length of 5 characters
-			wpm := (charsPerSecond * 60) / 5
-
 			// Check spelling
 			wordLower := strings.ToLower(w.Word)
 			isCorrect := w.Checker.IsCorrect(wordLower)
 
 			fmt.Printf("\n=== Word: %s ===\n", w.Word)
-			fmt.Printf("Duration: %.2f seconds\n", seconds)
-			fmt.Printf("Speed: %.2f chars/sec, %.2f WPM\n", charsPerSecond, wpm)
 			fmt.Printf("Spelling: ")
 			if isCorrect {
 				fmt.Println("✓ CORRECT")
