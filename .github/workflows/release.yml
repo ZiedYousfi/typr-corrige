@@ -199,8 +199,9 @@ jobs:
           if (-not $vsPath) {
             throw "could not find Visual Studio installation"
           }
-          & "$vsPath\VC\Auxiliary\Build\vcvars64.bat"
-          go build -o typr-corrige-windows-${{ matrix.arch }}.exe .
+          $vcvars = "$vsPath\VC\Auxiliary\Build\vcvars64.bat"
+          $cmd = "call `"$vcvars`" && go build -o typr-corrige-windows-${{ matrix.arch }}.exe ."
+          cmd /c $cmd
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
