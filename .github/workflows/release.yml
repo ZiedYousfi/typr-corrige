@@ -58,7 +58,7 @@ jobs:
         env:
           CGO_LDFLAGS: "-lstdc++"
         run: |
-          wails build -platform darwin/${{ matrix.goarch }} -o axidev-corrige-darwin-${{ matrix.arch }}
+          wails build -platform darwin/${{ matrix.goarch }} -o axidev-corrige-darwin-${{ matrix.arch }} -package false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
