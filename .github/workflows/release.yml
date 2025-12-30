@@ -196,7 +196,7 @@ jobs:
           CGO_ENABLED: 1
           GOOS: windows
           GOARCH: ${{ matrix.goarch }}
-          CGO_LDFLAGS: "-lstdc++"
+          CGO_LDFLAGS: "-lc++ -lc++abi"
         run: |
           go build -o axidev-corrige-windows-${{ matrix.arch }}.exe .
 
