@@ -9,14 +9,14 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 
-	//axidevio "github.com/ziedyousfi/axidev-io-go"
+	axidevio "github.com/ziedyousfi/axidev-io-go"
 )
 
 //go:embed frontend/*
 var assets embed.FS
 
 func main() {
-	//axidevio.SetLogLevel(axidevio.LogLevelWarn)
+	axidevio.SetLogLevel(axidevio.LogLevelWarn)
 	fmt.Println("Listening for keyboard events... (Press Space to clear word)")
 
 	// Initialize spellchecker
