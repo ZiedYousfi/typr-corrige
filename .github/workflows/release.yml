@@ -235,12 +235,6 @@ jobs:
           name: axidev-corrige-windows-amd64
           path: ./artifacts
 
-      - name: Download windows-arm64 artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: axidev-corrige-windows-arm64
-          path: ./artifacts
-
       - name: Upload darwin-amd64 to release
         uses: actions/upload-release-asset@v1
         env:
@@ -289,14 +283,4 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./artifacts/axidev-corrige-windows-amd64.exe
           asset_name: axidev-corrige-windows-amd64.exe
-          asset_content_type: application/octet-stream
-
-      - name: Upload windows-arm64 to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/axidev-corrige-windows-arm64.exe
-          asset_name: axidev-corrige-windows-arm64.exe
           asset_content_type: application/octet-stream
