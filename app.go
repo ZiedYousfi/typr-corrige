@@ -38,6 +38,8 @@ func NewApp(checker *spellchecker.Spellchecker) *App {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
+	runtime.WindowSetAlwaysOnTop(ctx, true)
+
 	// Start UI update processor goroutine
 	go a.processUpdates()
 
