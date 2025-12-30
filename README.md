@@ -1,6 +1,6 @@
 # axidev-corrige
 
-A small **auto-correct helper** for all platforms.
+A small **auto-correct helper** for all platforms, built with [Wails](https://wails.io/).
 
 It listens to your **global keyboard input**, builds the current word as you type, and when you press **Space** it checks the word against a **French dictionary**. If the word looks wrong, it can:
 
@@ -18,12 +18,21 @@ It listens to your **global keyboard input**, builds the current word as you typ
   - `bonjour ✓` (word is correct)
   - `bonjor → bonjour` (suggested correction)
 
-## Run
+## Prerequisites
 
-From the project folder:
+- Go 1.21+
+- [Wails CLI](https://wails.io/docs/gettingstarted/installation)
 
 ```bash
-go run .
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+```
+
+## Development
+
+Run in development mode with hot reload:
+
+```bash
+wails dev
 ```
 
 You should see console logs like:
@@ -35,13 +44,16 @@ If needed, macOS will prompt for Accessibility permissions. Granting them is req
 
 ## Build
 
+Build for production:
+
 ```bash
-go build -o corrige .
-./corrige
+wails build
 ```
+
+The binary will be in `build/bin/`.
 
 ## Notes / limitations
 
-- The “end of word” trigger is currently **Space** only.
-- Backspace, punctuation, and cursor navigation aren’t handled as word-edit operations (so the tracked word can get out of sync if you edit mid-word).
+- The "end of word" trigger is currently **Space** only.
+- Backspace, punctuation, and cursor navigation aren't handled as word-edit operations (so the tracked word can get out of sync if you edit mid-word).
 - The replacement shortcut assumes the OS/app uses the standard **Option+Shift+Left** word-selection behavior.

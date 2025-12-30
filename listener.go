@@ -11,15 +11,15 @@ import (
 
 type CurrentWord struct {
 	Word      string
-	Overlay   *OverlayWindow
+	App       *App
 	StartTime time.Time
 	Checker   *spellchecker.Spellchecker
 	Sender    *keyboard.Sender
 }
 
-func NewCurrentWord(overlay *OverlayWindow, checker *spellchecker.Spellchecker, sender *keyboard.Sender) *CurrentWord {
+func NewCurrentWord(app *App, checker *spellchecker.Spellchecker, sender *keyboard.Sender) *CurrentWord {
 	return &CurrentWord{
-		Overlay: overlay,
+		App:     app,
 		Checker: checker,
 		Sender:  sender,
 	}
@@ -73,29 +73,34 @@ func (w *CurrentWord) Callback(event keyboard.KeyEvent) {
 }
 
 func (w *CurrentWord) updateDisplay() {
-	if w.Overlay == nil {
+	if w.App == nil {
 		return
 	}
 
 	var displayText string
+	var state string
+
 	if w.Word == "" {
 		displayText = "Waiting..."
+		state = "waiting"
 	} else {
 		wordLower := strings.ToLower(w.Word)
 		if w.Checker.IsCorrect(wordLower) {
 			displayText = w.Word + " ✓"
+			state = "correct"
 		} else {
 			result := w.Checker.Suggest(wordLower, 1)
 			if len(result.Suggestions) > 0 {
 				displayText = fmt.Sprintf("%s → %s", w.Word, result.Suggestions[0].Value)
+				state = "suggestion"
 			} else {
 				displayText = w.Word + " ?"
+				state = "incorrect"
 			}
 		}
 	}
 
-	// Thread-safe : SetText appelle Invalidate()
-	w.Overlay.SetText(displayText)
+	w.App.UpdateDisplay(displayText, state)
 }
 
 func (w *CurrentWord) correctWord(correction string) {

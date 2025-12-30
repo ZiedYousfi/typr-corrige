@@ -1,15 +1,20 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"log"
-	"os"
 
-	"gioui.org/app"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 
 	axidevio "github.com/ziedyousfi/axidev-io-go"
 	"github.com/ziedyousfi/axidev-io-go/keyboard"
 )
+
+//go:embed frontend/*
+var assets embed.FS
 
 func main() {
 	axidevio.SetLogLevel(axidevio.LogLevelWarn)
@@ -38,11 +43,8 @@ func main() {
 		}
 	}
 
-	// Create overlay window
-	overlay := NewOverlayWindow()
-
-	// Create current word tracker
-	cw := NewCurrentWord(overlay, sc, sender)
+	// Create app instance
+	app := NewApp(sc, sender)
 
 	// Initialize keyboard listener
 	listener, err := keyboard.NewListener()
@@ -53,20 +55,27 @@ func main() {
 
 	// Start keyboard listener in goroutine
 	go func() {
-		err = listener.Start(cw.Callback)
+		err = listener.Start(app.CurrentWord.Callback)
 		if err != nil {
 			log.Printf("Listener error: %v", err)
 		}
 	}()
 
-	// Run overlay in goroutine (Gio requirement)
-	go func() {
-		if err := overlay.Run(); err != nil {
-			log.Fatal(err)
-		}
-		os.Exit(0)
-	}()
+	// Create Wails application
+	err = wails.Run(&options.App{
+		Title:  "Typr Correct",
+		Width:  400,
+		Height: 100,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		OnStartup: app.startup,
+		Bind: []interface{}{
+			app,
+		},
+	})
 
-	// Gio main loop (must be on main thread)
-	app.Main()
+	if err != nil {
+		log.Fatal("Error:", err)
+	}
 }
