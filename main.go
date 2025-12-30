@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"gioui.org/app"
-	typrio "github.com/ziedyousfi/axidev-io-go"
+	"github.com/ziedyousfi/axidev-io-go/keyboard"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	fmt.Printf("Loaded %d French words into dictionary\n", len(frenchWords))
 
 	// Create sender for auto-correction
-	sender, err := typrio.NewSender()
+	sender, err := keyboard.NewSender()
 	if err != nil {
 		log.Fatal("Failed to create sender:", err)
 	}
@@ -42,7 +42,7 @@ func main() {
 	cw := NewCurrentWord(overlay, sc, sender)
 
 	// Initialize keyboard listener
-	listener, err := typrio.NewListener()
+	listener, err := keyboard.NewListener()
 	if err != nil {
 		log.Fatal(err)
 	}

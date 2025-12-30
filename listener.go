@@ -6,7 +6,7 @@ import (
 	"time"
 
 	spellchecker "github.com/f1monkey/spellchecker/v3"
-	typrio "github.com/ziedyousfi/axidev-io-go"
+	"github.com/ziedyousfi/axidev-io-go/keyboard"
 )
 
 type CurrentWord struct {
@@ -14,10 +14,10 @@ type CurrentWord struct {
 	Overlay   *OverlayWindow
 	StartTime time.Time
 	Checker   *spellchecker.Spellchecker
-	Sender    *typrio.Sender
+	Sender    *keyboard.Sender
 }
 
-func NewCurrentWord(overlay *OverlayWindow, checker *spellchecker.Spellchecker, sender *typrio.Sender) *CurrentWord {
+func NewCurrentWord(overlay *OverlayWindow, checker *spellchecker.Spellchecker, sender *keyboard.Sender) *CurrentWord {
 	return &CurrentWord{
 		Overlay: overlay,
 		Checker: checker,
@@ -25,7 +25,7 @@ func NewCurrentWord(overlay *OverlayWindow, checker *spellchecker.Spellchecker, 
 	}
 }
 
-func (w *CurrentWord) Callback(event typrio.KeyEvent) {
+func (w *CurrentWord) Callback(event keyboard.KeyEvent) {
 	if !event.IsPress() {
 		return
 	}
@@ -105,10 +105,10 @@ func (w *CurrentWord) correctWord(correction string) {
 
 	time.Sleep(50 * time.Millisecond)
 
-	leftKey := typrio.StringToKey("Left")
-	backspaceKey := typrio.StringToKey("Backspace")
+	leftKey := keyboard.StringToKey("Left")
+	backspaceKey := keyboard.StringToKey("Backspace")
 
-	if err := w.Sender.Combo(typrio.ModAlt|typrio.ModShift, leftKey); err != nil {
+	if err := w.Sender.Combo(keyboard.ModAlt|keyboard.ModShift, leftKey); err != nil {
 		fmt.Printf("Error selecting word: %v\n", err)
 		return
 	}
