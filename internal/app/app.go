@@ -12,8 +12,8 @@ import (
 	"github.com/axide-dev/axidev-corrige/internal/state"
 	"github.com/axide-dev/axidev-corrige/internal/writing"
 
+	"github.com/axide-dev/axidev-io-go/keyboard"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"github.com/ziedyousfi/axidev-io-go/keyboard"
 )
 
 // Config holds application configuration

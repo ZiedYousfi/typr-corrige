@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/ziedyousfi/axidev-io-go/keyboard"
+	"github.com/axide-dev/axidev-io-go/keyboard"
 )
 
 // Handler processes keyboard input events

@@ -3,9 +3,9 @@ module github.com/axide-dev/axidev-corrige
 go 1.25.5
 
 require (
+	github.com/axide-dev/axidev-io-go v0.3.4
 	github.com/f1monkey/spellchecker/v3 v3.0.0
 	github.com/wailsapp/wails/v2 v2.11.0
-	github.com/ziedyousfi/axidev-io-go v0.3.3
 )
 
 require (
