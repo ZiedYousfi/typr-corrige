@@ -182,6 +182,14 @@ func (a *App) handleWordComplete() {
 			fmt.Printf("Suggestions: %v\n", words)
 			fmt.Printf("Scores: %v\n", score)
 
+			// Check score of best suggestion
+			if result.Suggestions[0].Score < 0.8 {
+				fmt.Println("Best suggestion score too low, skipping auto-correction")
+				fmt.Println()
+				a.updateDisplay()
+				return
+			}
+
 			// Perform auto-correction
 			if a.input != nil && a.input.CanSend() {
 				correction := result.Suggestions[0].Value
